@@ -35,8 +35,24 @@ class Deck {
         for (var i = 1; i <=13 ; i++) {
             this.list.push(new Card(suit,i))
         };
+        //カードをシャッフル()
+        let m = this.list.length;
+        while (m) {
+            const i = Math.floor(Math.random()*m--);
+            [this.list[m],this.list[i]] = [this.list[i],this.list[m]];
+        }
       }
     )
   };
-};
-console.log(new Deck);
+  shuffle() {
+    //カードをシャッフル()
+    let m = this.list.length;
+    while (m) {
+        const i = Math.floor(Math.random()*m--);
+        [this.list[m],this.list[i]] = [this.list[i],this.list[m]];
+    }
+    return this.list;
+  }
+}
+const deck = new Deck
+console.log(deck.shuffle());
