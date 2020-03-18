@@ -15,7 +15,7 @@ class Card {
           return "Q";
           break;
           return "K";
-        default:return this.num;
+        default:return this.num.toString();
       }
   }
   get point(){
@@ -55,4 +55,5 @@ class Deck {
   }
 }
 const deck = new Deck
-console.log(deck.shuffle());
+let tos = deck.list[3]
+console.log(tos);
