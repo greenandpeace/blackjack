@@ -14,6 +14,7 @@ class Card {
         case 12:
           return "Q";
           break;
+        case 13:
           return "K";
         default:return this.num.toString();
       }
@@ -35,12 +36,6 @@ class Deck {
         for (var i = 1; i <=13 ; i++) {
             this.list.push(new Card(suit,i))
         };
-        //カードをシャッフル()
-        let m = this.list.length;
-        while (m) {
-            const i = Math.floor(Math.random()*m--);
-            [this.list[m],this.list[i]] = [this.list[i],this.list[m]];
-        }
       }
     )
   };
@@ -54,6 +49,23 @@ class Deck {
     return this.list;
   }
 }
+
 const deck = new Deck
+deck.shuffle()
 let tos = deck.list[3]
-console.log(tos);
+console.log(tos.toString);
+
+class Hand {
+  constructor() {
+      this.list = [];
+  }
+}
+
+class User {
+  constructor() {
+    this.hand = new Hand();
+  }
+  draw: function () {
+    
+  }
+}
