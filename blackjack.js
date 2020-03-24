@@ -51,7 +51,7 @@ class Deck {
   }
   //山札のカード
   get cards() {
-    this.list
+    return this.list
   }
   drawn() {
     return this.list.shift()
@@ -83,4 +83,4 @@ class User {
 }
 const user = new User()
 user.draw(deck)
-console.log(user.hand,
+console.log(user.hand,deck.cards.length)
