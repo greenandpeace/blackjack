@@ -23,6 +23,7 @@ class Card {
       //J、Q、Kならば点数は１０。それいがいはそのまま
       return  this.num >= 10 ? 10 : this.num;
   }
+
 }
 class Deck {
   //山札の初期化
@@ -48,24 +49,38 @@ class Deck {
     }
     return this.list;
   }
+  //山札のカード
+  get cards() {
+    this.list
+  }
+  drawn() {
+    return this.list.shift()
+  }
 }
 
 const deck = new Deck
 deck.shuffle()
-let tos = deck.list[3]
+let tos = deck.list[0]
 console.log(tos.toString);
 
 class Hand {
   constructor() {
       this.list = [];
   }
+  push(card) {
+    this.list.push(card)
+  }
 }
+
 
 class User {
   constructor() {
     this.hand = new Hand();
   }
-  draw: function () {
-    
+  draw(deck) {
+    this.hand.push(deck.drawn())
   }
 }
+const user = new User()
+user.draw(deck)
+console.log(user.hand,
