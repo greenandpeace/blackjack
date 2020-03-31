@@ -1,4 +1,6 @@
 "use strict";
+//キー入力のイベントりすな
+document.addEventListener("keydown",(e)=>console.log(e))
 class Card {
   constructor(suit,num) {
     this.suit = suit;
@@ -39,6 +41,7 @@ class Deck {
         };
       }
     )
+    this.shuffle()
   };
   shuffle() {
     //カードをシャッフル()
@@ -59,7 +62,7 @@ class Deck {
 }
 
 const deck = new Deck
-deck.shuffle()
+//deck.shuffle()
 let tos = deck.list[0]
 console.log(tos.toString);
 
@@ -77,10 +80,11 @@ class User {
   constructor() {
     this.hand = new Hand();
   }
-  draw(deck) {
+  hit(deck) {
     this.hand.push(deck.drawn())
   }
 }
 const user = new User()
-user.draw(deck)
-console.log(user.hand,deck.cards.length)
+user.hit(deck)
+//console.log(user.hand,deck.cards.length)
+console.log(document)
