@@ -64,14 +64,20 @@ class Deck {
 const deck = new Deck
 //deck.shuffle()
 let tos = deck.list[0]
-console.log(tos.toString);
+//console.log(tos.toString);
 
 class Hand {
   constructor() {
+      //手札内のカードのリスト
       this.list = [];
   }
   push(card) {
     this.list.push(card)
+  }
+  //点数の取得 (プレイヤ＾は これを２１に近くしていく)
+  //手札がからの時使うとerror
+  get point() {
+    return this.list.reduce((sum,card) => sum + card.point,0);
   }
 }
 
