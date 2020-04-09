@@ -68,6 +68,7 @@ let tos = deck.list[0]
 
 class Hand {
   constructor() {
+
       //手札内のカードのリスト
       this.list = [];
   }
@@ -93,4 +94,4 @@ class User {
 const user = new User()
 user.hit(deck)
 //console.log(user.hand,deck.cards.length)
-console.log(document)
+console.log(document,$("h1").text())
