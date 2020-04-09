@@ -93,5 +93,14 @@ class User {
 }
 const user = new User()
 user.hit(deck)
+class Game {
+  constructor() {
+      this.deck = new Deck();
+      this.player = new User();
+      //this.dealer = new Dealer();
+      console.log(this.deck,this.player);
+  }
+}
+const game = new Game()
 //console.log(user.hand,deck.cards.length)
 console.log(document,$("h1").text())
