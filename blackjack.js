@@ -87,11 +87,25 @@ class User {
   constructor() {
     this.hand = new Hand();
   }
-  hit(deck) {
+  act() {
+    $("body").append($("<p>").append("<p>hitしますか?y/n</p>"))
+    //$('body').append($('<p>').append('<strong>foo</strong>'));
+    //console.log(question_draw);
+  }
+  hit() {
     this.hand.push(deck.drawn())
   }
 }
 const user = new User()
-user.hit(deck)
+user.act()
+class Game {
+  constructor() {
+      this.deck = new Deck();
+      this.player = new User();
+      //this.dealer = new Dealer();
+      console.log(this.deck,this.player);
+  }
+}
+const game = new Game()
 //console.log(user.hand,deck.cards.length)
-console.log(document,$("h1").text())
+//console.log(document,$("h1").text())
