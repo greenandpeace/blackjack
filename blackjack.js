@@ -88,10 +88,10 @@ class User {
     this.hand = new Hand();
   }
   act() {
-    $("body").append($("<p>").append("<p>hitしますか?y/n</p>"))
+    $("body").append($("<p>").append("<p>hitしますか?y/n</p>"))
     document.addEventListener("keydown",(e)=>{
-      return function f() {
-          
+      return function f() {
+
       }
     })
     //console.log(question_draw);
