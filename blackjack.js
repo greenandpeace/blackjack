@@ -1,6 +1,6 @@
 "use strict";
 //キー入力のイベントりすな
-document.addEventListener("keydown",(e)=>console.log(e))
+//document.addEventListener("keydown",(e)=>console.log(e))
 class Card {
   constructor(suit,num) {
     this.suit = suit;
@@ -88,13 +88,13 @@ class User {
     this.hand = new Hand();
   }
   act() {
-    $("body").append($("<p>").append("<p>hitしますか?y/n</p>"))
-    document.addEventListener("keydown",(e)=>{
-      return function f() {
-
-      }
-    })
-    //console.log(question_draw);
+    $("body").append($("<p>").append("<p>hitしますか?y/n</p>"))
+    function quest_y_n(e) {
+        console.log(e.code);
+        document.removeEventListener("keydown",quest_y_n)
+    }
+    document.addEventListener("keydown",quest_y_n)
+    console.log();
   }
   hit() {
     this.hand.push(deck.drawn())
