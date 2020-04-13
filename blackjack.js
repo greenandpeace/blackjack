@@ -1,7 +1,7 @@
 "use strict";
 //キー入力のイベントりすな
 //document.addEventListener("keydown",(e)=>console.log(e))
-$("body").keydown(quest_y_n)
+
 class Card {
   constructor(suit,num) {
     this.suit = suit;
@@ -88,9 +88,13 @@ class User {
   constructor() {
     this.hand = new Hand();
   }
-  hit() {
-    this.hand.push(deck.drawn())
-    console.log(this.hand);
+  //num 引く枚数
+  hit(num) {
+    for (var i = 1; i <= num; i++) {
+      this.hand.push(deck.drawn())
+      console.log(this.hand);
+    }
+
   }
 }
 function quest_y_n(e) {
@@ -118,5 +122,9 @@ class Game {
       this.player = new User();
       console.log(this.deck,this.player);
   }
+  play() {
+    user.hit(2)
+  }
 }
 const game = new Game()
+game.play()
