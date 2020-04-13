@@ -1,6 +1,7 @@
 "use strict";
 //キー入力のイベントりすな
 //document.addEventListener("keydown",(e)=>console.log(e))
+$("body").keydown(quest_y_n)
 class Card {
   constructor(suit,num) {
     this.suit = suit;
@@ -87,29 +88,35 @@ class User {
   constructor() {
     this.hand = new Hand();
   }
-  act() {
-    $("body").append($("<p>").append("<p>hitしますか?y/n</p>"))
-    function quest_y_n(e) {
-        console.log(e.code);
-        document.removeEventListener("keydown",quest_y_n)
-    }
-    document.addEventListener("keydown",quest_y_n)
-    console.log();
-  }
   hit() {
     this.hand.push(deck.drawn())
+    console.log(this.hand);
   }
 }
+function quest_y_n(e) {
+  //document.addEventListener("keydown",quest_y_n)
+    switch (e.code) {
+      case "KeyY":
+        console.log("yes",this);
+        user.hit()
+        //reomveじゃなくて無効にする予定
+        //document.removeEventListener("keydown",quest_y_n);
+        $("body").off("keydown");
+        break;
+      case "KeyN":
+        console.log("no");
+        document.removeEventListener("keydown",quest_y_n);
+        $("body").off("keydown");
+        return;
+        break;
+    }
+}
 const user = new User()
-user.act()
 class Game {
   constructor() {
       this.deck = new Deck();
       this.player = new User();
-      //this.dealer = new Dealer();
       console.log(this.deck,this.player);
   }
 }
 const game = new Game()
-//console.log(user.hand,deck.cards.length)
-//console.log(document,$("h1").text())
