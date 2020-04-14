@@ -123,7 +123,7 @@ class Game {
   }
   user_act() {
     $("body").append($("<p>").append("<p>hitしますか?y/n(Yを押す：カードを引く)(Nを押す：カードを引かない)</p>"))
-    document.addEventListener("keydown",quest_y_n)
+    $("body").keydown(quest_y_n)
   }
   play() {
     user.hit(2)
