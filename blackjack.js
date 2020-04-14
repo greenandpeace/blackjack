@@ -84,7 +84,7 @@ class Hand {
 }
 
 
-class User {
+class Gambler {
   constructor() {
     this.hand = new Hand();
   }
@@ -98,6 +98,11 @@ class User {
     }
 
   }
+}
+
+//操作する側
+class Player extends Gambler {
+
 }
 function quest_y_n(e) {
   //document.addEventListener("keydown",quest_y_n)
@@ -114,11 +119,11 @@ function quest_y_n(e) {
         break;
     }
 }
-const user = new User()
+const user = new Player()
 class Game {
   constructor() {
       this.deck = new Deck();
-      this.player = new User();
+      this.player = new Player();
       console.log(this.deck,this.player);
   }
   user_act() {
