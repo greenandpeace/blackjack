@@ -91,6 +91,8 @@ class User {
   //num 引く枚数
   hit(num) {
     for (var i = 1; i <= num; i++) {
+      let drawn_card = deck.drawn()
+      $("body").append($("<p>").append(`<p>あなたの引いたカードは${drawn_card.suit}の${drawn_card.toString}です`))
       this.hand.push(deck.drawn())
       console.log(this.hand);
     }
@@ -102,14 +104,11 @@ function quest_y_n(e) {
     switch (e.code) {
       case "KeyY":
         console.log("yes",this);
-        user.hit()
-        //reomveじゃなくて無効にする予定
-        //document.removeEventListener("keydown",quest_y_n);
+        user.hit(1)
         $("body").off("keydown");
         break;
       case "KeyN":
         console.log("no");
-        document.removeEventListener("keydown",quest_y_n);
         $("body").off("keydown");
         return;
         break;
@@ -122,9 +121,15 @@ class Game {
       this.player = new User();
       console.log(this.deck,this.player);
   }
+  user_act() {
+    $("body").append($("<p>").append("<p>hitしますか?y/n(Yを押す：カードを引く)(Nを押す：カードを引かない)</p>"))
+    document.addEventListener("keydown",quest_y_n)
+  }
   play() {
     user.hit(2)
+    this.user_act();
   }
+
 }
 const game = new Game()
 game.play()
