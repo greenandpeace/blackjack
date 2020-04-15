@@ -105,7 +105,7 @@ class Player extends Gambler {
 
 }
 //対戦相手（コンピューター）
-class dealer extends Gambler {
+class Dealer extends Gambler {
 
 }
 function quest_y_n(e) {
@@ -127,6 +127,7 @@ class Game {
   constructor() {
       this.deck = new Deck();
       this.player = new Player();
+      this.dealer = new Dealer();
       console.log(this.deck,this.player);
   }
   user_act() {
@@ -134,6 +135,7 @@ class Game {
     $("body").keydown(quest_y_n)
   }
   play() {
+    this.dealer.hit(2)
     this.player.hit(2)
     this.user_act();
   }
