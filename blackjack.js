@@ -1,7 +1,4 @@
 "use strict";
-//キー入力のイベントりすな
-//document.addEventListener("keydown",(e)=>console.log(e))
-
 class Card {
   constructor(suit,num) {
     this.suit = suit;
@@ -64,8 +61,6 @@ class Deck {
 
 const deck = new Deck
 //deck.shuffle()
-let tos = deck.list[0]
-//console.log(tos.toString);
 
 class Hand {
   constructor() {
@@ -95,10 +90,10 @@ class Gambler {
   hit(num) {
     for (var i = 1; i <= num; i++) {
       let drawn_card = deck.drawn()
-      $("body").append($("<p>").append(`<p>あなたの引いたカードは${drawn_card.suit}の${drawn_card.toString}です`))
+      $("body").append($("<p>").append(`<p>${this.constructor.name}の引いたカードは${drawn_card.suit}の${drawn_card.toString}です`))
       this.hand.push(drawn_card)
       let point = this.hand.point;
-      $("body").append($("<p>").append(`<p>あなたの現在の得点は${point}です`))
+      $("body").append($("<p>").append(`<p>${this.constructor.name}の現在の得点は${point}です`))
       console.log(this.hand, this.hand.is_burst());
     }
 
@@ -107,6 +102,10 @@ class Gambler {
 
 //操作する側
 class Player extends Gambler {
+
+}
+//対戦相手（コンピューター）
+class dealer extends Gambler {
 
 }
 function quest_y_n(e) {
@@ -136,7 +135,7 @@ class Game {
     $("body").keydown(quest_y_n)
   }
   play() {
-    user.hit(2)
+    this.player.hit(2)
     this.user_act();
   }
 
