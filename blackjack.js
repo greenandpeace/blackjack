@@ -113,7 +113,7 @@ function quest_y_n(e) {
     switch (e.code) {
       case "KeyY":
         console.log("yes",this);
-        user.hit(1)
+        game.player.hit(1)
         $("body").off("keydown");
         break;
       case "KeyN":
@@ -123,7 +123,6 @@ function quest_y_n(e) {
         break;
     }
 }
-const user = new Player()
 class Game {
   constructor() {
       this.deck = new Deck();
