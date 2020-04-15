@@ -93,7 +93,9 @@ class Gambler {
     for (var i = 1; i <= num; i++) {
       let drawn_card = deck.drawn()
       $("body").append($("<p>").append(`<p>あなたの引いたカードは${drawn_card.suit}の${drawn_card.toString}です`))
-      this.hand.push(deck.drawn())
+      this.hand.push(drawn_card)
+      let point = this.hand.point;
+      $("body").append($("<p>").append(`<p>あなたの現在の得点は${point}です`))
       console.log(this.hand);
     }
 
