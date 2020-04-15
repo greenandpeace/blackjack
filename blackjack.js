@@ -81,6 +81,9 @@ class Hand {
   get point() {
     return this.list.reduce((sum,card) => sum + card.point,0);
   }
+  is_burst() {
+    return this.point > 21 ? true : false
+  }
 }
 
 
@@ -96,7 +99,7 @@ class Gambler {
       this.hand.push(drawn_card)
       let point = this.hand.point;
       $("body").append($("<p>").append(`<p>あなたの現在の得点は${point}です`))
-      console.log(this.hand);
+      console.log(this.hand, this.hand.is_burst());
     }
 
   }
