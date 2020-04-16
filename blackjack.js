@@ -86,14 +86,16 @@ class Gambler {
   constructor() {
     this.hand = new Hand();
   }
-  //num 引く枚数
-  hit(num) {
+  //num 引く枚数 number
+  //is_visible 引いたカードを表示するかどうか boolean
+  hit(num,is_visible) {
     for (var i = 1; i <= num; i++) {
       let drawn_card = deck.drawn()
-      $("body").append($("<p>").append(`<p>${this.constructor.name}の引いたカードは${drawn_card.suit}の${drawn_card.toString}です`))
+      is_visible ?  $("body").append($("<p>").append(`<p>${this.constructor.name}の引いたカードは${drawn_card.suit}の${drawn_card.toString}です`)) :
+                    $("body").append($("<p>").append(`<p>${this.constructor.name}の引いたカードはわかりません`))
       this.hand.push(drawn_card)
       let point = this.hand.point;
-      $("body").append($("<p>").append(`<p>${this.constructor.name}の現在の得点は${point}です`))
+      if (is_visible) $("body").append($("<p>").append(`<p>${this.constructor.name}の現在の得点は${point}です`))
       console.log(this.hand, this.hand.is_burst());
     }
 
@@ -106,14 +108,13 @@ class Player extends Gambler {
 }
 //対戦相手（コンピューター）
 class Dealer extends Gambler {
-
 }
 function quest_y_n(e) {
   //document.addEventListener("keydown",quest_y_n)
     switch (e.code) {
       case "KeyY":
         console.log("yes",this);
-        game.player.hit(1)
+        game.player.hit(1,true)
         $("body").off("keydown");
         break;
       case "KeyN":
@@ -135,8 +136,9 @@ class Game {
     $("body").keydown(quest_y_n)
   }
   play() {
-    this.dealer.hit(2)
-    this.player.hit(2)
+    this.dealer.hit(1,true)
+    this.dealer.hit(1,false)
+    this.player.hit(2,true)
     this.user_act();
   }
 
