@@ -132,7 +132,7 @@ class Game {
       console.log(this.deck,this.player);
   }
   user_act() {
-    $("body").append($("<p>").append("<p>hitしますか?y/n(Yを押す：カードを引く)(Nを押す：カードを引かない)</p>"))
+    $("body").append($("<p>").append("<p>hitしますか?引く場合はY、引かない場合はNを押してください</p>"))
     $("body").keydown(quest_y_n)
   }
   play() {
