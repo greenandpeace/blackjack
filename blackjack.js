@@ -59,7 +59,7 @@ class Deck {
   }
 }
 
-const deck = new Deck
+//const deck = new Deck
 //deck.shuffle()
 
 class Hand {
@@ -90,7 +90,7 @@ class Gambler {
   //is_visible 引いたカードを表示するかどうか boolean
   hit(num,is_visible) {
     for (var i = 1; i <= num; i++) {
-      let drawn_card = deck.drawn()
+      let drawn_card = game.deck.drawn()
       is_visible ?  $("body").append($("<p>").append(`<p>${this.constructor.name}の引いたカードは${drawn_card.suit}の${drawn_card.toString}です`)) :
                     $("body").append($("<p>").append(`<p>${this.constructor.name}の引いたカードはわかりません`))
       this.hand.push(drawn_card)
