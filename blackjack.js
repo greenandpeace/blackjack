@@ -116,6 +116,13 @@ function quest_y_n(e) {
         console.log("yes",this);
         game.player.hit(1,true)
         $("body").off("keydown");
+        if (game.player.hand.is_burst()) {
+            $("body").append($("<p>").append("あなたの得点が21を超えました"))
+                        game.end(game.player)
+        }
+        else {
+          game.user_act()
+        }
         break;
       case "KeyN":
         console.log("no");
@@ -140,6 +147,12 @@ class Game {
     this.dealer.hit(1,false)
     this.player.hit(2,true)
     this.user_act();
+  }
+  //ゲーム終了loser : 敗者(object)
+  end(loser) {
+      if (loser === this.player) {
+          $("body").append($("<p>").append("あなたの負け！"))
+      }
   }
 
 }
