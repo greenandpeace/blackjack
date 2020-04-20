@@ -104,7 +104,10 @@ class Gambler {
 
 //操作する側
 class Player extends Gambler {
-
+  act() {
+    $("body").append($("<p>").append("<p>hitしますか?引く場合はY、引かない場合はNを押してください</p>"))
+    $("body").keydown(quest_y_n)
+  }
 }
 //対戦相手（コンピューター）
 class Dealer extends Gambler {
@@ -121,7 +124,8 @@ function quest_y_n(e) {
                         game.end(game.player)
         }
         else {
-          game.user_act()
+          //game.user_act()
+          game.player.act()
         }
         break;
       case "KeyN":
@@ -138,15 +142,12 @@ class Game {
       this.dealer = new Dealer();
       console.log(this.deck,this.player);
   }
-  user_act() {
-    $("body").append($("<p>").append("<p>hitしますか?引く場合はY、引かない場合はNを押してください</p>"))
-    $("body").keydown(quest_y_n)
-  }
   play() {
     this.dealer.hit(1,true)
     this.dealer.hit(1,false)
     this.player.hit(2,true)
-    this.user_act();
+    //this.user_act();
+    this.player.act();
   }
   //ゲーム終了loser : 敗者(object)
   end(loser) {
