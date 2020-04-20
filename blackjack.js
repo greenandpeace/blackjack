@@ -111,6 +111,19 @@ class Player extends Gambler {
 }
 //対戦相手（コンピューター）
 class Dealer extends Gambler {
+  act(){
+    while (true) {
+      if (this.hand.point >= 17) {
+        console.log("dealerのhit終わり");
+        break;
+
+      }
+      else {
+        this.hit(1,true)
+        console.log(this.hand.point);
+      }
+    }
+  }
 }
 function quest_y_n(e) {
   //document.addEventListener("keydown",quest_y_n)
@@ -131,6 +144,7 @@ function quest_y_n(e) {
       case "KeyN":
         console.log("no");
         $("body").off("keydown");
+        game.dealer.act(1,true)
         return;
         break;
     }
@@ -146,7 +160,6 @@ class Game {
     this.dealer.hit(1,true)
     this.dealer.hit(1,false)
     this.player.hit(2,true)
-    //this.user_act();
     this.player.act();
   }
   //ゲーム終了loser : 敗者(object)
