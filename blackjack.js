@@ -120,6 +120,11 @@ class Dealer extends Gambler {
       }
       else {
         this.hit(1,true)
+        //もし引いた後に手札がバーストしたら
+        //ディーラーの負けでゲーム終わり
+        if (this.hand.is_burst) {
+           game.end(this)
+        }
         console.log(this.hand.point);
       }
     }
@@ -144,7 +149,8 @@ function quest_y_n(e) {
       case "KeyN":
         console.log("no");
         $("body").off("keydown");
-        game.dealer.act(1,true)
+        game.dealer.act()
+        game.compare_score()
         return;
         break;
     }
@@ -162,12 +168,22 @@ class Game {
     this.player.hit(2,true)
     this.player.act();
   }
+  compare_score(){
+     const p_point = game.player.hand.point;
+     const d_point = game.dealer.hand.point;
+     $("body").append($("<p>").append(`あなたの得点は${p_point}です`))
+     $("body").append($("<p>").append(`Dealerの得点は${d_point}です`))
+     if (p_point < d_point) {
+         game.end(player)
+     }
+  }
   //ゲーム終了loser : 敗者(object)
   end(loser) {
       if (loser === this.player) {
-          $("body").append($("<p>").append("あなたの負け！"))
+          $("body").append($("<p>").append("あなたの負けです！"))
       }
   }
+
 
 }
 const game = new Game()
