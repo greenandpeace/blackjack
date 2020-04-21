@@ -183,15 +183,24 @@ class Game {
      else if (p_point > d_point) {
         game.end(this.dealer)
      }
+     //ディーラーとプレイヤーのスコアが同じ＝引き分けの時
+     else {
+       game.end(null)
+     }
 
   }
   //ゲーム終了loser : 敗者(object)
+// 引き分けの時はloser === null
   end(loser) {
       if (loser === this.player) {
           $("body").append($("<p>").append("あなたの負けです！"))
       }
       else if (loser === this.dealer) {
                     $("body").append($("<p>").append("あなたの勝ち！"))
+      }
+      //nullが渡された＝引き分けの時
+      else {
+          $("body").append($("<p>").append("引き分け！"))
       }
   }
 
