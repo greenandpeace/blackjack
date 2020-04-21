@@ -96,7 +96,7 @@ class Gambler {
       this.hand.push(drawn_card)
       let point = this.hand.point;
       if (is_visible) $("body").append($("<p>").append(`<p>${this.constructor.name}の現在の得点は${point}です`))
-      console.log(this.hand, this.hand.is_burst());
+      //console.log(this.hand, this.hand.is_burst());
     }
 
   }
@@ -115,6 +115,7 @@ class Dealer extends Gambler {
     while (true) {
       if (this.hand.point >= 17) {
         console.log("dealerのhit終わり");
+        game.compare_score()
         break;
 
       }
@@ -122,8 +123,11 @@ class Dealer extends Gambler {
         this.hit(1,true)
         //もし引いた後に手札がバーストしたら
         //ディーラーの負けでゲーム終わり
-        if (this.hand.is_burst) {
+        if (this.hand.is_burst()) {
+          $("body").append($("<p>").append("ディーラーがバースト！"))
            game.end(this)
+           console.log("dealer負け",this.hand.point);
+           break;
         }
         console.log(this.hand.point);
       }
@@ -150,7 +154,7 @@ function quest_y_n(e) {
         console.log("no");
         $("body").off("keydown");
         game.dealer.act()
-        game.compare_score()
+        //game.compare_score()
         return;
         break;
     }
@@ -174,13 +178,20 @@ class Game {
      $("body").append($("<p>").append(`あなたの得点は${p_point}です`))
      $("body").append($("<p>").append(`Dealerの得点は${d_point}です`))
      if (p_point < d_point) {
-         game.end(player)
+         game.end(this.player)
      }
+     else if (p_point > d_point) {
+        game.end(this.dealer)
+     }
+
   }
   //ゲーム終了loser : 敗者(object)
   end(loser) {
       if (loser === this.player) {
           $("body").append($("<p>").append("あなたの負けです！"))
+      }
+      else if (loser === this.dealer) {
+                    $("body").append($("<p>").append("あなたの勝ち！"))
       }
   }
 
