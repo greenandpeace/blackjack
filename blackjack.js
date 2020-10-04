@@ -23,7 +23,6 @@ class Card {
       //J、Q、Kならば点数は１０。それいがいはそのまま
       return  this.num >= 10 ? 10 : this.num;
   }
-
 }
 class Deck {
   //山札の初期化
@@ -74,7 +73,8 @@ class Hand {
   //点数の取得 (プレイヤ＾は これを２１に近くしていく)
   //手札がからの時使うとerror
   get point() {
-    return this.list.reduce((sum,card) => sum + card.point,0);
+    //これからAを加えてバーストするかどうか
+    return this.list.reduce((sum,card) => card.num == 1 && sum+11<21? sum+11 :sum + card.point,0);
   }
   is_burst() {
     return this.point > 21 ? true : false
@@ -93,7 +93,7 @@ class Gambler {
       let drawn_card = game.deck.drawn()
       is_visible ?  $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードは${drawn_card.suit}の${drawn_card.toString}です`)) :
                     $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードはわかりません`))
-      this.hand.push(drawn_card)
+      this.hand.push(drawn_card);
       let point = this.hand.point;
       if (is_visible) $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の現在の得点は${point}です`))
       //console.log(this.hand, this.hand.is_burst());
