@@ -24,6 +24,7 @@ class Card {
       return  this.num >= 10 ? 10 : this.num;
   }
 }
+
 class Deck {
   //山札の初期化
   constructor() {
@@ -73,7 +74,7 @@ class Hand {
   //点数の取得 (プレイヤ＾は これを２１に近くしていく)
   //手札がからの時使うとerror
   get point() {
-    //これからAを加えてバーストするかどうか
+    //カードがAでかつ10点タスとバーストするかどうか
     return this.list.reduce((sum,card) => card.num == 1 && sum+11<21? sum+11 :sum + card.point,0);
   }
   is_burst() {
@@ -206,5 +207,14 @@ class Game {
 
 
 }
+function show_cards() {
+  //const canvas = $("#canvas")
+  const canvas = document.getElementById("canvas")
+  console.log(canvas);
+  const ctx = canvas.getContext("2d");
+  const card = document.getElementById("cards");
+  ctx.drawImage(card,0,0);
+}
+show_cards();
 const game = new Game()
 game.play()
