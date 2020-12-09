@@ -5,11 +5,14 @@
     <title>ブラックジャック</title>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
+  <body onload="">
   <h1>ブラックジャックへようこそ！</h1>
 
   <hr>
   <p>ゲームを開始します。</p>
+  <p>所持金:<b id="money"></b> </p>
+  <label for="bet">掛け金</label>
+  <input type="number" name="bet" value="1">
   <div id="dealer"></div>
   <div id="user"></div>
   <div id="question_draw"></div>
