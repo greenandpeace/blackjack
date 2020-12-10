@@ -92,9 +92,13 @@ class Gambler {
   hit(num,is_visible) {
     for (var i = 1; i <= num; i++) {
       let drawn_card = game.deck.drawn()
-      is_visible ?  $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードは${drawn_card.suit}の${drawn_card.toString}です`)) :
-                    $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードはわかりません`))
       this.hand.push(drawn_card);
+      if (is_visible) {
+        $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードは${drawn_card.suit}の${drawn_card.toString}です`))
+        show_cards(this);
+      }else {
+        $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードはわかりません`))
+      }
       let point = this.hand.point;
       if (is_visible) $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の現在の得点は${point}です`))
       //console.log(this.hand, this.hand.is_burst());
@@ -230,4 +234,4 @@ function show_cards(gambler) {
 
 const game = new Game()
 game.play()
-show_cards(game.dealer);
+//show_cards(game.dealer);
