@@ -31,7 +31,7 @@ class Deck {
     //山札にあるカードのリスト
     this.list = [];
     //使うスートのリスト
-    const suits = ["ハート","スペード","クラブ","ダイヤ"]
+    const suits = ["スペード","クラブ","ハート","ダイヤ"]
     //スートごとに１〜１３のカードを作成
     suits.forEach(suit =>{
         for (var i = 1; i <=13 ; i++) {
@@ -207,14 +207,27 @@ class Game {
 
 
 }
-function show_cards() {
+//gambler:手札を表示する持ち主
+function show_cards(gambler) {
   //const canvas = $("#canvas")
   const canvas = document.getElementById("canvas")
-  console.log(canvas);
   const ctx = canvas.getContext("2d");
-  const card = document.getElementById("cards");
-  ctx.drawImage(card,0,0);
-}
-show_cards();
+  const img = document.getElementById("cards");
+  const hands = gambler.hand.list;
+  console.log(hands);
+  //プレイヤーのカードなら手前にディーラーのカードならオクに出すように
+  let vertical_padding = gambler==game.dealer? 0 : 64*3;
+  hands.forEach((card,index)=>{
+    console.log(card.suit,index);
+    const suits = ["スペード","クラブ","ハート","ダイヤ"];
+    //スペードなら画像の０列目、クラブなら１番目・・というふうに参照する
+    let column = suits.findIndex(elem=>elem==card.suit);
+    //console.log(column);
+        ctx.drawImage(img,(card.num-1)*32,column*64,32,64,index*32,vertical_padding,32,64);
+  });
+  //ctx.drawImage(img,0,0,32,64,0,0,32,64);
+};
+
 const game = new Game()
 game.play()
+show_cards(game.dealer);
