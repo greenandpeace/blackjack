@@ -1,8 +1,9 @@
 "use strict";
 class Card {
-  constructor(suit,num) {
+  constructor(suit,num,hidden=false) {
     this.suit = suit;
     this.num = num;
+    this.hidden = hidden;
   }
   get toString(){
       switch (this.num) {
@@ -75,7 +76,7 @@ class Hand {
   //手札がからの時使うとerror
   get point() {
     //カードがAでかつ10点タスとバーストするかどうか
-    return this.list.reduce((sum,card) => card.num == 1 && sum+11<21? sum+11 :sum + card.point,0);
+    return this.list.reduce((sum,card) => card.num == 1 && sum+11<=21? sum+11 :sum + card.point,0);
   }
   is_burst() {
     return this.point > 21 ? true : false
@@ -98,6 +99,7 @@ class Gambler {
         show_cards(this);
       }else {
         $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードはわかりません`))
+        show_cards(this,false)
       }
       let point = this.hand.point;
       if (is_visible) $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の現在の得点は${point}です`))
@@ -212,13 +214,15 @@ class Game {
 
 }
 //gambler:手札を表示する持ち主
-function show_cards(gambler) {
+//is_visible:booleanカードの表を表示するかどうか　falseだと裏
+function show_cards(gambler,) {
   //const canvas = $("#canvas")
   const canvas = document.getElementById("canvas")
   const ctx = canvas.getContext("2d");
   const img = document.getElementById("cards");
   const hands = gambler.hand.list;
   console.log(hands);
+
   //プレイヤーのカードなら手前にディーラーのカードならオクに出すように
   let vertical_padding = gambler==game.dealer? 0 : 64*3;
   hands.forEach((card,index)=>{
@@ -227,8 +231,10 @@ function show_cards(gambler) {
     //スペードなら画像の０列目、クラブなら１番目・・というふうに参照する
     let column = suits.findIndex(elem=>elem==card.suit);
     //console.log(column);
+        //カードの表の画像を出す
         ctx.drawImage(img,(card.num-1)*32,column*64,32,64,index*32,vertical_padding,32,64);
   });
+
   //ctx.drawImage(img,0,0,32,64,0,0,32,64);
 };
 
