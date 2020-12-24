@@ -53,10 +53,10 @@ class Deck {
   }
   //山札のカード
   get cards() {
-    return this.list
+    return this.list;
   }
   drawn() {
-    return this.list.shift()
+    return this.list.shift();
   }
 }
 
@@ -68,19 +68,25 @@ class Hand {
 
       //手札内のカードのリスト
       this.list = [];
-  }
+  };
   push(card) {
     this.list.push(card)
-  }
+  };
   //点数の取得 (プレイヤ＾は これを２１に近くしていく)
   //手札がからの時使うとerror
   get point() {
     //カードがAでかつ10点タスとバーストするかどうか
     return this.list.reduce((sum,card) => card.num == 1 && sum+11<=21? sum+11 :sum + card.point,0);
-  }
+  };
   is_burst() {
     return this.point > 21 ? true : false
-  }
+  };
+  //全てのカードを見えるようにする
+  make_all_cards_visible() {
+    this.list.forEach((card)=>{
+       card.hidden = false;
+    });
+  };
 }
 
 
@@ -98,11 +104,13 @@ class Gambler {
         $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードは${drawn_card.suit}の${drawn_card.toString}です`))
         show_cards(this);
       }else {
-        $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードはわかりません`))
-        show_cards(this,false)
+        $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の引いたカードはわかりません`));
+        drawn_card.hidden = true;
+        show_cards(this)
       }
+      console.log(drawn_card);
       let point = this.hand.point;
-      if (is_visible) $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の現在の得点は${point}です`))
+      if (is_visible) $("body").append($(`<p class=${this.constructor.name}>`).append(`<p>${this.constructor.name}の現在の得点は${point}です`));
       //console.log(this.hand, this.hand.is_burst());
     }
 
@@ -119,12 +127,13 @@ class Player extends Gambler {
 //対戦相手（コンピューター）
 class Dealer extends Gambler {
   act(){
+    //全ての手札を見えるようにする
+    this.hand.make_all_cards_visible();
     while (true) {
       if (this.hand.point >= 17) {
         console.log("dealerのhit終わり");
         game.compare_score()
         break;
-
       }
       else {
         this.hit(1,true)
@@ -215,7 +224,7 @@ class Game {
 }
 //gambler:手札を表示する持ち主
 //is_visible:booleanカードの表を表示するかどうか　falseだと裏
-function show_cards(gambler,) {
+function show_cards(gambler) {
   //const canvas = $("#canvas")
   const canvas = document.getElementById("canvas")
   const ctx = canvas.getContext("2d");
@@ -232,7 +241,13 @@ function show_cards(gambler,) {
     let column = suits.findIndex(elem=>elem==card.suit);
     //console.log(column);
         //カードの表の画像を出す
-        ctx.drawImage(img,(card.num-1)*32,column*64,32,64,index*32,vertical_padding,32,64);
+        if(card.hidden){
+            ctx.drawImage(img,3*32, 4*64,32,64,index*32,vertical_padding,32,64);
+        }else{
+          //カードの裏の画像を出す
+            ctx.drawImage(img,(card.num-1)*32,column*64,32,64,index*32,vertical_padding,32,64);
+            console.log("カード非表示");
+        }
   });
 
   //ctx.drawImage(img,0,0,32,64,0,0,32,64);
